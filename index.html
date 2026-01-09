@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      background-image: url('background.png'); /* 배경 PNG */
+      background-image: url('background.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -22,8 +22,8 @@
 
     .overlay {
       min-height: 100vh;
-      background: rgba(0,0,0,0.25); /* 배경 PNG 위 가독성 보정용 */
-      padding: 24px 16px 48px;
+      background: rgba(0,0,0,0.25);
+      padding: 24px 16px 80px; /* 하단 scroll 버튼 공간 확보 */
     }
 
     .container {
@@ -34,12 +34,18 @@
       gap: 20px;
     }
 
+    /* 이미지 크기 개별 조정 */
     .image-link {
       display: block;
       border-radius: 14px;
       overflow: hidden;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
+      margin: 0 auto;
     }
+
+    .img-1 { width: 92%; margin-top: 24px; } /* image 1 여백 + 크기 */
+    .img-2 { width: 88%; }
+    .img-3 { width: 90%; }
 
     .image-link:hover {
       transform: translateY(-2px);
@@ -51,6 +57,29 @@
       height: auto;
       display: block;
     }
+
+    /* scroll 버튼 */
+    .scroll-indicator {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      backdrop-filter: blur(6px);
+      animation: float 1.6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -6px); }
+      100% { transform: translate(-50%, 0); }
+    }
   </style>
 </head>
 <body>
@@ -58,23 +87,27 @@
     <div class="container">
 
       <!-- 이미지 1 -->
-      <a class="image-link" href="https://petitions.assembly.go.kr/proceed/onGoingAll/3F82B3E5292B6B8BE064ECE7A7064E8B " target="_blank">
+      <a class="image-link img-1" href="https://petitions.assembly.go.kr/proceed/onGoingAll/3F82B3E5292B6B8BE064ECE7A7064E8B" target="_blank">
         <img src="image1.png" alt="link image 1" />
       </a>
 
       <!-- 이미지 2 -->
-      <a class="image-link" href="https://example.com/2" target="_blank">
+      <a class="image-link img-2" href="https://example.com/2" target="_blank">
         <img src="image2.png" alt="link image 2" />
       </a>
 
       <!-- 이미지 3 -->
-      <a class="image-link" href="https://example.com/3" target="_blank">
+      <a class="image-link img-3" href="https://example.com/3" target="_blank">
         <img src="image3.png" alt="link image 3" />
       </a>
 
-      <!-- 필요하면 계속 추가 -->
-
     </div>
   </div>
+
+  <!-- scroll 버튼 -->
+  <a href="#" class="scroll-indicator" onclick="window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' }); return false;">
+    SCROLL ↓
+  </a>
 </body>
 </html>
+
