@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Linktree</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image: url('background.png'); /* 배경 PNG */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .overlay {
+      min-height: 100vh;
+      background: rgba(0,0,0,0.25); /* 배경 PNG 위 가독성 보정용 */
+      padding: 24px 16px 48px;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .image-link {
+      display: block;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .image-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+
+    .image-link img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="container">
+
+      <!-- 이미지 1 -->
+      <a class="image-link" href="https://example.com/1" target="_blank">
+        <img src="image1.png" alt="link image 1" />
+      </a>
+
+      <!-- 이미지 2 -->
+      <a class="image-link" href="https://example.com/2" target="_blank">
+        <img src="image2.png" alt="link image 2" />
+      </a>
+
+      <!-- 이미지 3 -->
+      <a class="image-link" href="https://example.com/3" target="_blank">
+        <img src="image3.png" alt="link image 3" />
+      </a>
+
+      <!-- 필요하면 계속 추가 -->
+
+    </div>
+  </div>
+</body>
+</html>
