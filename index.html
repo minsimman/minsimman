@@ -36,16 +36,18 @@
 
     .image-link {
       display: block;
-      overflow: hidden;
+      /* 둥근 처리 제거 */
+      border-radius: 0;
+      overflow: visible;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
       margin: 0 auto;
     }
 
     /* 전체적으로 기존 대비 약 20% 축소 */
-    .img-0 { width: 96%; margin: 12px auto 8px; opacity: 0.95; }
+    .img-0 { width: 66%; margin: 12px auto 8px; opacity: 0.95; }
     .img-1 { width: 74%; margin-top: 18px; }
-    .img-2 { width: 74%; }
-    .img-3 { width: 74%; }
+    .img-2 { width: 70%; }
+    .img-3 { width: 72%; }
 
     .image-link:hover {
       transform: translateY(-2px);
@@ -80,6 +82,25 @@
       50% { transform: translate(-50%, -6px); }
       100% { transform: translate(-50%, 0); }
     }
+
+    /* 오른쪽 하단 따라다니는 minsim 이미지 */
+    #minsim-float {
+      position: fixed;
+      right: 16px;
+      bottom: 20px;
+      z-index: 999;
+      pointer-events: none;
+      transition: transform 0.15s ease-out;
+    }
+
+    #minsim-float img {
+      width: 64px;
+      height: auto;
+      display: block;
+    }
+      50% { transform: translate(-50%, -6px); }
+      100% { transform: translate(-50%, 0); }
+    }
   </style>
 </head>
 <body>
@@ -88,7 +109,7 @@
 
       <!-- image 0 (상단 장식 / 안내용) -->
       <div class="image-link img-0">
-        <img src="image00.png" alt="top image" />
+        <img src="image0.png" alt="top image" />
       </div>
 
       <!-- 이미지 1 -->
@@ -111,7 +132,23 @@
 
   <!-- scroll 버튼 -->
   <a href="#" class="scroll-indicator" onclick="window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' }); return false;">
-    SCROLL
+    청원 동의할 전단지를 눌러주세요
   </a>
+  <!-- minsim 따라다니는 이미지 -->
+  <div id="minsim-float">
+    <img src="minsim.png" alt="minsim" />
+  </div>
+
+  <script>
+    let lastScrollY = window.scrollY;
+    const minsim = document.getElementById('minsim-float');
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollY;
+      minsim.style.transform = `translateY(${Math.min(Math.max(delta, -10), 10)}px)`;
+      lastScrollY = currentScrollY;
+    });
+  </script>
 </body>
 </html>
