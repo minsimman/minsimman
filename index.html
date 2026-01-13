@@ -99,17 +99,19 @@
   <div class="overlay">
     <div class="container">
 
-      <!-- ✅ image00 : 기존 그대로 -->
+      <!-- image00 (고정) -->
       <div class="image-link img-0">
         <img src="image0000.png" alt="top image">
       </div>
 
-      <!-- ✅ image1 : 기존 그대로 + 기존 링크 -->
-      <a class="image-link" href="https://petitions.assembly.go.kr/proceed/onGoingAll/3F82B3E5292B6B8BE064ECE7A7064E8B" target="_blank">
+      <!-- image01 (고정 + 링크) -->
+      <a class="image-link"
+         href="https://petitions.assembly.go.kr/proceed/onGoingAll/3F82B3E5292B6B8BE064ECE7A7064E8B"
+         target="_blank">
         <img src="image01.png" alt="link image 01">
       </a>
 
-      <!-- 🔽 image2~20 자동 삽입 영역 -->
+      <!-- image2~20 자동 영역 -->
       <div id="auto-images"></div>
 
     </div>
@@ -127,7 +129,6 @@
   <script>
     const autoContainer = document.getElementById('auto-images');
 
-    // image2 ~ image20만 자동 처리
     const autoImages = [
       { file: 'image2.png', link: 'https://petitions.assembly.go.kr/proceed/onGoingAll/3F3C1D1219DC3B08E064B49691C6967B' },
       { file: 'image3.png', link: 'https://petitions.assembly.go.kr/proceed/onGoingAll/3F25B17CA1BA22CBE064ECE7A7064E8B' },
@@ -150,7 +151,18 @@
       { file: 'image20.png', link: 'https://example.com/20' }
     ];
 
-    autoImages.forEach(item => {
+    /* 🔒 순서 고정 로직 */
+
+    // 1. 슬롯을 순서대로 먼저 생성
+    const slots = autoImages.map(() => {
+      const slot = document.createElement('div');
+      slot.style.display = 'none';
+      autoContainer.appendChild(slot);
+      return slot;
+    });
+
+    // 2. 각 슬롯에 해당 이미지 채우기
+    autoImages.forEach((item, index) => {
       const img = new Image();
       img.src = item.file;
 
@@ -160,9 +172,11 @@
         a.target = '_blank';
         a.className = 'image-link';
         a.appendChild(img);
-        autoContainer.appendChild(a);
+
+        slots[index].appendChild(a);
+        slots[index].style.display = 'block';
       };
-      // 실패 시 아무것도 생성 안 함
+      // 실패 시 해당 슬롯은 끝까지 비어 있음
     });
 
     // minsim 스크롤 반응
@@ -172,9 +186,11 @@
     window.addEventListener('scroll', () => {
       const current = window.scrollY;
       const delta = current - lastScrollY;
-      minsim.style.transform = `translateY(${Math.max(Math.min(delta, 10), -10)}px)`;
+      minsim.style.transform =
+        `translateY(${Math.max(Math.min(delta, 10), -10)}px)`;
       lastScrollY = current;
     });
   </script>
 </body>
 </html>
+
