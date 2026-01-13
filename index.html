@@ -33,6 +33,11 @@
       gap: 22px;
     }
 
+    /* 🔧 핵심 수정: auto-images를 레이아웃에서 제거 */
+    #auto-images {
+      display: contents;
+    }
+
     .image-link {
       display: block;
       width: 74%;
@@ -151,9 +156,9 @@
       { file: 'image20.png', link: 'https://example.com/20' }
     ];
 
-    /* 🔒 순서 고정 로직 */
+    /* 순서 고정 로직 */
 
-    // 1. 슬롯을 순서대로 먼저 생성
+    // 1. 슬롯 먼저 생성
     const slots = autoImages.map(() => {
       const slot = document.createElement('div');
       slot.style.display = 'none';
@@ -161,7 +166,7 @@
       return slot;
     });
 
-    // 2. 각 슬롯에 해당 이미지 채우기
+    // 2. 슬롯에 이미지 채우기
     autoImages.forEach((item, index) => {
       const img = new Image();
       img.src = item.file;
@@ -176,7 +181,7 @@
         slots[index].appendChild(a);
         slots[index].style.display = 'block';
       };
-      // 실패 시 해당 슬롯은 끝까지 비어 있음
+      // 실패 시 slot은 비어 있음
     });
 
     // minsim 스크롤 반응
@@ -193,4 +198,3 @@
   </script>
 </body>
 </html>
-
